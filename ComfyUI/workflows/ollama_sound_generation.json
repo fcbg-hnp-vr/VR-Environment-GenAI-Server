@@ -1,0 +1,1072 @@
+{
+  "last_node_id": 48,
+  "last_link_id": 48,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -467.6802792066158,
+        -67.86949931796875
+      ],
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3,
+            5
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            32
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "sd_xl_base_1.0.safetensors"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        128.31972079338468,
+        164.13050068203128
+      ],
+      "size": {
+        "0": 422.84503173828125,
+        "1": 164.31304931640625
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 13,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "beautiful scenery nature glass bottle landscape, , purple galaxy bottle,"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "pos": [
+        611.3197207933842,
+        -94.86949931796872
+      ],
+      "size": {
+        "0": 315,
+        "1": 262
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 4
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        892606919538840,
+        "randomize",
+        50,
+        8,
+        "euler",
+        "normal",
+        1
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1191.319720793386,
+        20.130500682031233
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 33
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            45
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 9,
+      "type": "SaveImage",
+      "pos": [
+        2056.3197207933817,
+        -99.86949931796872
+      ],
+      "size": {
+        "0": 210,
+        "1": 270
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 45
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        -456.68027920661575,
+        85.67362235097657
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        4
+      ]
+    },
+    {
+      "id": 11,
+      "type": "OllamaGenerate",
+      "pos": [
+        -872.5297477086955,
+        490.6645569135614
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "response",
+          "type": "STRING",
+          "links": [
+            10,
+            13,
+            22
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OllamaGenerate"
+      },
+      "widgets_values": [
+        "Please give a short description of a natural landscape. Include only the description in the answer.",
+        "enable",
+        "http://127.0.0.1:11434",
+        "llama3"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "OllamaGenerate",
+      "pos": [
+        162.47025229130455,
+        500.6645569135614
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 23,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "response",
+          "type": "STRING",
+          "links": [
+            25,
+            44
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OllamaGenerate"
+      },
+      "widgets_values": [
+        "What is Art?",
+        "enable",
+        "http://127.0.0.1:11434",
+        "llama3"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        136.7439561421876,
+        -29.3077030701172
+      ],
+      "size": {
+        "0": 425.27801513671875,
+        "1": 180.6060791015625
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "text, watermark, borders, frame"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "ShowText|pysssss",
+      "pos": [
+        -387.5297477086957,
+        466.6645569135614
+      ],
+      "size": {
+        "0": 490.6488037109375,
+        "1": 184.955078125
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 10,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [],
+          "shape": 6,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "A lush meadow stretches out before you, where tall grasses and wildflowers sway gently in the breeze. A winding stream runs along the edge, its crystal-clear water reflecting the blue sky above. In the distance, the rugged silhouette of a mountain range rises up, its peaks still capped with snow despite the warmth of summer. The air is filled with the sweet scent of blooming heather and the soft chirping of birds."
+      ]
+    },
+    {
+      "id": 23,
+      "type": "ShowText|pysssss",
+      "pos": [
+        80.94844548828135,
+        744.0770281187496
+      ],
+      "size": {
+        "0": 490,
+        "1": 180
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 24,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [],
+          "shape": 6,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "Please describe the each sound that can be heard in the following landscape. Please only answer with a Python list of short description for each sound. Answer only with the list.\n\nRolling hills of golden grass sway gently in the breeze, as far as the eye can see. Scattered pine trees dot the landscape like emeralds on a velvet cloth, their trunks sturdy and strong. A meandering stream babbles its way through the scene, its crystal waters reflecting the cerulean sky above. Wildflowers of every hue bloom spontaneously, adding splashes of color to this serene and peaceful tableau."
+      ]
+    },
+    {
+      "id": 22,
+      "type": "StringFunction|pysssss",
+      "pos": [
+        -229.0515545117186,
+        749.0770281187496
+      ],
+      "size": {
+        "0": 400,
+        "1": 244
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text_b",
+          "type": "STRING",
+          "link": 22,
+          "widget": {
+            "name": "text_b"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            23,
+            24
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringFunction|pysssss"
+      },
+      "widgets_values": [
+        "append",
+        "no",
+        "Please describe the each sound that can be heard in the following landscape. Please only answer with a Python list of short description for each sound. Answer only with the list.\n\n",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 34,
+      "type": "Reroute",
+      "pos": [
+        200,
+        52
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 32
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "VAE",
+          "links": [
+            33
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 25,
+      "type": "MusicgenLoader",
+      "pos": [
+        1182.5381409531253,
+        454.2513616617188
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MUSICGEN_MODEL",
+          "links": [
+            37
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "SR",
+          "type": "INT",
+          "links": [
+            48
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MusicgenLoader"
+      },
+      "widgets_values": [
+        "audiogen-medium"
+      ]
+    },
+    {
+      "id": 33,
+      "type": "SaveAudio",
+      "pos": [
+        2271,
+        996
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO_TENSOR",
+          "link": 41
+        },
+        {
+          "name": "sr",
+          "type": "INT",
+          "link": 47,
+          "widget": {
+            "name": "sr"
+          }
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudio"
+      },
+      "widgets_values": [
+        32000,
+        "wav",
+        "Audio"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "Reroute",
+      "pos": [
+        1596,
+        792
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 48,
+          "pos": [
+            37.5,
+            0
+          ],
+          "widget": {
+            "name": "value"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "INT",
+          "links": [
+            47
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": true
+      }
+    },
+    {
+      "id": 24,
+      "type": "ShowText|pysssss",
+      "pos": [
+        648,
+        573
+      ],
+      "size": {
+        "0": 431.43231201171875,
+        "1": 229.61392211914062
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 25,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [],
+          "shape": 6,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "['Gentle rustling of grass', 'Soft whispering of pine leaves', 'Bubbly gurgling of stream', 'Honeybees buzzing among flowers']"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "MusicgenGenerateCustom",
+      "pos": [
+        1673,
+        501
+      ],
+      "size": {
+        "0": 400,
+        "1": 288
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MUSICGEN_MODEL",
+          "link": 37
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO_TENSOR",
+          "link": null
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 44,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "RAW_AUDIO",
+          "type": "AUDIO_TENSOR",
+          "links": [
+            38,
+            41
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MusicgenGenerateCustom"
+      },
+      "widgets_values": [
+        "",
+        1,
+        10,
+        1,
+        250,
+        0,
+        1,
+        100,
+        "randomize"
+      ]
+    },
+    {
+      "id": 38,
+      "type": "PreviewImage",
+      "pos": [
+        2583,
+        518
+      ],
+      "size": {
+        "0": 210,
+        "1": 246
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 39
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 37,
+      "type": "SpectrogramImage",
+      "pos": [
+        2176,
+        505
+      ],
+      "size": {
+        "0": 315,
+        "1": 178
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO_TENSOR",
+          "link": 38
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            39
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SpectrogramImage"
+      },
+      "widgets_values": [
+        200,
+        50,
+        100,
+        1,
+        false,
+        true
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      4,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      5,
+      0,
+      3,
+      3,
+      "LATENT"
+    ],
+    [
+      3,
+      4,
+      1,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      6,
+      0,
+      3,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      5,
+      4,
+      1,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      6,
+      7,
+      0,
+      3,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      3,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      10,
+      11,
+      0,
+      10,
+      0,
+      "STRING"
+    ],
+    [
+      13,
+      11,
+      0,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      22,
+      11,
+      0,
+      22,
+      0,
+      "STRING"
+    ],
+    [
+      23,
+      22,
+      0,
+      18,
+      0,
+      "STRING"
+    ],
+    [
+      24,
+      22,
+      0,
+      23,
+      0,
+      "STRING"
+    ],
+    [
+      25,
+      18,
+      0,
+      24,
+      0,
+      "STRING"
+    ],
+    [
+      32,
+      4,
+      2,
+      34,
+      0,
+      "*"
+    ],
+    [
+      33,
+      34,
+      0,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      37,
+      25,
+      0,
+      36,
+      0,
+      "MUSICGEN_MODEL"
+    ],
+    [
+      38,
+      36,
+      0,
+      37,
+      0,
+      "AUDIO_TENSOR"
+    ],
+    [
+      39,
+      37,
+      0,
+      38,
+      0,
+      "IMAGE"
+    ],
+    [
+      41,
+      36,
+      0,
+      33,
+      0,
+      "AUDIO_TENSOR"
+    ],
+    [
+      44,
+      18,
+      0,
+      36,
+      2,
+      "STRING"
+    ],
+    [
+      45,
+      8,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      47,
+      48,
+      0,
+      33,
+      1,
+      "INT"
+    ],
+    [
+      48,
+      25,
+      1,
+      48,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Image generation",
+      "bounding": [
+        -478,
+        -174,
+        2754,
+        376
+      ],
+      "color": "#b58b2a",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Inputs preparation",
+      "bounding": [
+        -883,
+        393,
+        1984,
+        426
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "locked": false
+    },
+    {
+      "title": "Audio Generation",
+      "bounding": [
+        1173,
+        380,
+        1669,
+        774
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "locked": false
+    }
+  ],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
