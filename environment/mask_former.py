@@ -131,4 +131,4 @@ def main(image):
 
 
 if __name__ == "__main__":
-    main(Image.open("../island.png"))
+    main(Image.open("../sunny_mountain.png"))

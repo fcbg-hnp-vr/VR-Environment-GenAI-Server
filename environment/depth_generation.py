@@ -8,6 +8,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+def get_depth_pipeline():
+    """Main pipeline for the depth model."""
+    return MarigoldDepthPipeline.from_pretrained(
+        "prs-eth/marigold-v1-0",
+        custom_pipeline="marigold_depth_estimation",
+    )
+
+
 def compute_image_depth(image, color_map="Spectral"):
     """
     Compute the depth of the image.
@@ -17,10 +25,7 @@ def compute_image_depth(image, color_map="Spectral"):
     :return: Pipeline
     """
     # Original DDIM version (higher quality)
-    pipe = MarigoldDepthPipeline.from_pretrained(
-        "prs-eth/marigold-v1-0",
-        custom_pipeline="marigold_depth_estimation",
-    )
+    pipe = get_depth_pipeline()
     # Note: a 16-bit variant is also available, just use torch_dtype=torch.float16, variant="fp16"
 
     pipe.to("cuda")
@@ -148,4 +153,4 @@ def main(image=None):
 
 
 if __name__ == "__main__":
-    main(Image.open("../sky.png"))
+    main(Image.open("../sunny_mountain.png"))

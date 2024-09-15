@@ -482,9 +482,9 @@ def get_ground_mask(depth_map, ground_mask=None):
     :return numpy.ndarray: A binary mask indicating the ground pixels.
     """
     monotonous_depth = force_monotonous(depth_map)
-    grad = np.gradient(monotonous_depth, axis=0)
     corrupt_depth = increasing_depth(monotonous_depth)
     adherence = corrupt_depth - monotonous_depth
+    grad = np.gradient(monotonous_depth, axis=0)
     great_map = np.logical_and((adherence * corrupt_depth) < 0.1, grad < 0).astype(np.float32)
     conv = gaussian_filter(great_map, sigma=10)
     zones = conv > 0.5
