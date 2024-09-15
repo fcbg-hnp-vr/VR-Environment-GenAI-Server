@@ -17,13 +17,17 @@ by Hugo FARAJALLAH.
 
 ## Installation
 
-Using Python:
+You need to get Python 3.10 and CUDA 12.1 (other versions are untested).
+Once the requirements are installed, the project should work.
+
+Here is a detailed installation procedure:
 
 1. Install [CUDA 12.1](https://developer.nvidia.com/cuda-12-1-0-download-archive), it enables computation on the GPU.
 2. Install **Python 3.10**, for Windows you can download it using the [official installer](https://www.python.org/downloads/windows/). 
-3. Clone or copy the Git repository: <https://gitlab.com/fcbg-hnp-vr/2024/interne/ai-world-generation/world-generator>.
-4. Create a Python virtual environment. While not strictly necessary, it is highly recommended as the project requires 
-many dependencies. For instance using [venv](https://docs.python.org/3/library/venv.html):
+3. Clone or copy this Git repository: <https://github.com/fcbg-hnp-vr/VR-Environment-GenAI-Server/>.
+4. Create a Python virtual environment. While not strictly necessary, it is highly recommended as the project has 
+many dependencies.
+For instance using [venv](https://docs.python.org/3/library/venv.html):
    * On Linux:
    ```bash
    cd VR-Environment-GenAI-Server
@@ -38,7 +42,7 @@ many dependencies. For instance using [venv](https://docs.python.org/3/library/v
    py -m venv .venv        # Creates the virtual environment under .venv
    .venv\Scripts\activate  # Activates it
    ```
-5. Install the Python requirements.
+6. Install the Python requirements.
    ```bash
    pip install -r requirements.txt
    ```
