@@ -4,6 +4,8 @@ A Python project to create VR environments using Generative AI.
 You can run it as a TCP server to interface it with a [Unity client](https://github.com/fcbg-hnp-vr/VR-Environment-GenAI-Unity),
 to get the fully-fledged AI/VR application.
 
+> This is a public archive, development continues at [HugoFara/speech-to-world-server](https://github.com/HugoFara/speech-to-world-server)!
+
 This is a use case of generative AI to build a complete VR scenery.
 It was developed at the [Fondation Campus Biotech Geneva](https://fcbg.ch/),
 in collaboration with the [Laboratory of Cognitive Science](https://www.epfl.ch/labs/lnco/),
@@ -181,3 +183,4 @@ Please have a look at ``utils/download_models.py`` to see where those models are
 ## Useful Links
 
 You can download the official Unity client from [VR-Environment-GenAI-Unity (GitHub)](https://github.com/fcbg-hnp-vr/VR-Environment-GenAI-Unity).
+If you are looking for the active public repository of this project, go to [HugoFara/speech-to-world-server](https://github.com/HugoFara/speech-to-world-server).
